@@ -9,7 +9,7 @@ int a = 30'000;
 
 long long b = 9'223'372'036'854'077;
 
-char c = 14;  // ♫
+char c = '14';  // ♫
 
 bool d;
 d = true;
