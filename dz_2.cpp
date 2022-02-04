@@ -9,7 +9,11 @@ int a = 30'000;
 
 long long b = 9'223'372'036'854'077;
 
+<<<<<<< HEAD
 char c = 'A';
+=======
+char c = '14';  // ♫
+>>>>>>> d89242956c65cec28355f85d11c230b0c12f665f
 
 bool d;
 d = true;
