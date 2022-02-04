@@ -11,9 +11,9 @@ int main() {
 	int c = 9;
 	int d = 7;
 	
-	float e = static_cast <float> (c) / d;
-    float f = b + static_cast <float> (e);
-    float g = a * static_cast <float> (f);
+        float e = static_cast <float> (c) / d;
+        float f = b + static_cast <float> (e);
+        float g = a * static_cast <float> (f);
 	
 	cout << "a * (b + (c / d)) = " << g << endl;
 
@@ -57,9 +57,9 @@ using namespace std;    // разрешаем использовать прос�
 int main() {
 
 	int arr[3][3][3] = {
-	    { { 1, 2, 3 }, { 1, 2, 3 }, { 3, 4, 5 } },
-		{ { 1, 2, 3 }, { 1, 11, 3 }, { 3, 4, 5 } },
-		{ { 1, 2, 3 }, { 1, 2, 3 }, { 3, 4, 5 } }
+        { { 1, 2, 3 }, { 1, 2, 3 }, { 3, 4, 5 } },
+	{ { 1, 2, 3 }, { 1, 11, 3 }, { 3, 4, 5 } },
+	{ { 1, 2, 3 }, { 1, 2, 3 }, { 3, 4, 5 } }
 	};
 	
 	int* pArr = nullptr; // объвляем указатель и инициализируем его нулем
@@ -89,11 +89,11 @@ extern int d;
 
 int main() {
 	
-	float e = static_cast <float> (c) / d;
+    float e = static_cast <float> (c) / d;
     float f = b + static_cast <float> (e);
     float g = a * static_cast <float> (f);
 
-	cout << g << endl;
+    cout << "a * (b + (c / d)) = " << g << endl;
 
 	return 0;
 }
