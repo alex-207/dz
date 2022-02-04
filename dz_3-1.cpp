@@ -15,7 +15,7 @@ int main() {
     float f = b + static_cast <float> (e);
     float g = a * static_cast <float> (f);
 	
-	cout << g << endl;
+	cout << "a * (b + (c / d)) = " << g << endl;
 
 
 return 0;
