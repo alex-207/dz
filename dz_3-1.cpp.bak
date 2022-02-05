@@ -11,11 +11,18 @@ int main() {
 	int c = 9;
 	int d = 7;
 	
+<<<<<<< HEAD
+    const float var = a * (b + (static_cast<float> (c) / d));  // кастование, при делении, делается для одной из двух переменных: "c" или "d";
+	                                                           // т.к. дробная часть теряется только при целочисленном делении 
+
+    cout << "a * (b + (c / d)) = " << var << endl;
+=======
         float e = static_cast <float> (c) / d;
-        float f = b + e;
-        float g = a * f;
+        float f = b + static_cast <float> (e);
+        float g = a * static_cast <float> (f);
 	
 	cout << "a * (b + (c / d)) = " << g << endl;
+>>>>>>> 05a99834e9c7c4d1e38c655921509282ed434478
 
 
 return 0;
@@ -57,6 +64,7 @@ using namespace std;    // разрешаем использовать прос�
 
 int main() {
 
+<<<<<<< HEAD
 	const int SIZE = 3;
 	int arr[SIZE][SIZE][SIZE] = { 0 };    // объявляем трехмерный массив 3 х 3 х 3
 	                                      /* int arr[3][3][3]{
@@ -66,6 +74,15 @@ int main() {
 	                                         }; */
 
 	int *pArr = nullptr; // объвляем указатель и инициализируем его нулем
+=======
+	int arr[3][3][3] = {
+        { { 1, 2, 3 }, { 1, 2, 3 }, { 3, 4, 5 } },
+	{ { 1, 2, 3 }, { 1, 11, 3 }, { 3, 4, 5 } },
+	{ { 1, 2, 3 }, { 1, 2, 3 }, { 3, 4, 5 } }
+	};
+	
+	int* pArr = nullptr; // объвляем указатель и инициализируем его нулем
+>>>>>>> 05a99834e9c7c4d1e38c655921509282ed434478
 
 	pArr = &arr[1][1][1];  // настраиваем указатель на центральный элемент массива
 
@@ -94,17 +111,17 @@ extern int d;
 
 int main() {
 	
+<<<<<<< HEAD
+    const float var = a * (b + (static_cast<float> (c) / d));
+
+    cout << "a * (b + (c / d)) = " << var << endl;
+=======
     float e = static_cast <float> (c) / d;
-    float f = b + e;
-    float g = a * f;
+    float f = b + static_cast <float> (e);
+    float g = a * static_cast <float> (f);
 
     cout << "a * (b + (c / d)) = " << g << endl;
+>>>>>>> 05a99834e9c7c4d1e38c655921509282ed434478
 
 	return 0;
 }
-
-const float var = a * (b + (static_cast<float> (c) / d));
-
-cout << var << endl;
-
-return 0;
