@@ -11,10 +11,11 @@ int main() {
 	int c = 9;
 	int d = 7;
 	
-    const float var = a * (b + (static_cast<float> (c) / d));  // кастование, при делении, делается для одной из двух переменных: "c" или "d";
-	                                                           // т.к. дробная часть теряется только при целочисленном делении 
-
-    cout << "a * (b + (c / d)) = " << var << endl;
+        float e = static_cast <float> (c) / d;
+        float f = b + e;
+        float g = a * f;
+	
+	cout << "a * (b + (c / d)) = " << g << endl;
 
 
 return 0;
@@ -93,9 +94,17 @@ extern int d;
 
 int main() {
 	
-    const float var = a * (b + (static_cast<float> (c) / d));
+    float e = static_cast <float> (c) / d;
+    float f = b + e;
+    float g = a * f;
 
-    cout << "a * (b + (c / d)) = " << var << endl;
+    cout << "a * (b + (c / d)) = " << g << endl;
 
 	return 0;
 }
+
+const float var = a * (b + (static_cast<float> (c) / d));
+
+cout << var << endl;
+
+return 0;
