@@ -50,35 +50,35 @@ string isPrime(unsigned int number)           // вызов функции
 {
 	bool isPrime = true;
 	
-	if (number == 1 || number == 0)
+	if (number == 1 || number == 0)           
 		
-	isPrime = false;
+	isPrime = false;                         // отметили 1 и 0 как непростые числа (false)
 
-    else if (number == 2)
+    else if (number == 2)                    
 	{
-		isPrime = true
+		isPrime = true                       // отметили 2 как простое число (true)
 	}
 	
-	else if (number % 2 == 0)           // если делится на 2 без остатка(четное)
+	else if (number % 2 == 0)                // если делится на 2 без остатка → четное
 	{
-		isPrime = false
+		isPrime = false                      // отметили все четные как непростые числа (false)
 	}
     
     else
     {
-		for (size_t i = 3; i <= round(sqrt(number)); i += 2)  // проверяем только нечетные числа
-		{
-			if (number % i == 0)
-			{
-				isPrime = false;
-				break;
-			}
+		for (size_t i = 3; i <= round(sqrt(number)); i += 2)  // проверяем нечетные(3 + 2 + 2 + 2..) числа от 3; до квадратного корня из "number";
+		{                                                     // round(sqrt(number)) - функция извлечения квадратного корня                             
+			if (number % i == 0)                              // если любое из этих нечетных чисел поделится без остатка ↓ 
+			{                                                 
+				isPrime = false;                              // отметить его как непростое число                     
+				break;                                        // и выйти из программы
+			}  
 		}
 	}
 
     if (isPrime)
 	{
-		
+		return PRIME;
 	}
     else
 	{
@@ -96,10 +96,9 @@ string isPrime(unsigned int number)           // вызов функции
 
 string isLeapYear(unsigned int year)       // вызов функции
 {
-
     bool isLeap = false;
 
-    if ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0)))
+    if ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))) //  (год делится на 400) или (делится на 4 и не делится на 100)
     {
 	    isLeap = true;   // високосный
     }
