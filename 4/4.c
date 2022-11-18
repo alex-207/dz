@@ -105,7 +105,7 @@ int main() {
 	printf("\n");
 
 	// 4.
-    // онке 8У8
+        // онке 8У8
 	const sizeX = 8;
 	const sizeY = 8;
 
