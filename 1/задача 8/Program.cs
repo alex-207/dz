@@ -11,7 +11,7 @@ flag = int.TryParse(Console.ReadLine(), out N);  // считать строку 
 if(flag == true) { // если введенное число - корректно
     
     // ЕСЛИ N - ЧЕТНОЕ, ПОЛОЖИТЕЛЬНОЕ
-    if(N > 0 && N % 2 == 0) {
+    if(N >= 0 && N % 2 == 0) {
         while(count <= N) {
             Console.Write($"{count} ");
             count += 2;
