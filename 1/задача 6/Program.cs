@@ -8,7 +8,7 @@ Console.WriteLine($"Enter the num please: ");
 flag = int.TryParse(Console.ReadLine(), out a);  // считать строку и попытаться ее переформатировать в число и если удастся -> flag = true и записать это число в а
 
 if(flag == true) { // если введенное число - корректно
-    if (a % 2 == 0) Console.WriteLine($"yes");
+    if(a % 2 == 0) Console.WriteLine($"yes");
     else Console.Write($"no");
 }
 else Console.Write($"Wrong input!");
