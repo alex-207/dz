@@ -13,10 +13,10 @@ int CountLot(int a)
 }
 
 int CountSum(int a, int lot)
-{                                // a   = 123
-    int sum = 0;                 // lot =   3
-    for (int i = 0; i < lot; i++)//   i =   0 1
-    {                            // sum =   0 3
+{
+    int sum = 0;
+    for (int i = 0; i < lot; i++)
+    {
         sum += a % 10;
         a /= 10;
     }
