@@ -21,4 +21,4 @@ x = (b2 - b1) / (k1 - k2);
 y = k1 * x + b1;
 
 Console.Write($"b1 = {b1}, k1 = {k1}, b2 = {b2}, k2 = {k2} -> ");
-Console.Write($"({x} {y})");
+Console.Write($"({Math.Round(x, 2)} {Math.Round(y, 2)})");
