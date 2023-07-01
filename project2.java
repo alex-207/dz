@@ -60,7 +60,7 @@ public class project2 {
         String[] types = filesOneLine.split(" ");
         for (String typeFile : types) {
             System.out.println("Расширение файла: " + typeFile);
-            // !!!НЕ ЗНАЮ КАК РАССПЛИТИТЬ
+            // !!!НЕ ЗНАЮ КАК РАССПЛИТИТЬ ДО ТОЧКИ...
         }
     }
 
