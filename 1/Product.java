@@ -1,65 +1,79 @@
-import java.util.Calendar;
+/** Товар */
+public class Product {
 
-public abstract class Product {
+    protected String name; // Наименование
+    protected String brand; // Изготовитель
+    protected double price; // Стоимость
 
-    // protected - ДОСТУП ДЛЯ ДАННОГО И ДОЧЕРНИХ КЛАССОВ
-    protected int price;
-    protected String name;
-    protected int quantity;  // количество
-    protected Calendar bestBefore;  // годен до
-
-    /**
-     * конструктор
-     * @param name  название продукта
-     * @param price  цена продукта
-     * @param quantity  количество
-     * @param bestBefore  срок годности
-     */
-    public Product(String name, int price, int quantity, Calendar bestBefore) {  // принять значения из main
-        
-        // ИНИЦИАЛИЗАЦИЯ ПРИВАТНЫХ ПОЛЕЙ ДАННОГО КЛАССА ЧЕРЕЗ КОНСТРУКТОР
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-        this.bestBefore = bestBefore;
+    public Product(){
+        this("Noname");  // вызов конструктора с именем, из данного конструктора 
     }
 
-    /** МЕТОДЫ ВЫЗВРАЩАЮТ ПРИВАТНЫЕ ПОЛЯ КЛАССА - СНИПЕД "get" */
+    public Product(String name){
+        this(name, "Noname");
+    }
+
+    public Product(String name, String brand){
+        this(name, brand, 100);
+    }
+
+    public Product(String name, String brand, double price){
+        if (price < 100){
+            throw new RuntimeException("Некорректная цена товара.");
+        }
+        this.price = price;
+        checkName(name);
+        checkBrand(brand);
+    }
+
     public String getName() {
         return name;
     }
 
-    public int getPrice() {
+    public void setName(String name) {
+        checkName(name);
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        checkBrand(brand);
+    }
+
+    public double getPrice() {
         return price;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public Calendar getBestBefore() {
-        return bestBefore;
-    }
-
-    /** МЕТОДЫ ИНИЦИАЛИЗИРУЮТ ПРИВАТНЫЕ ПОЛЯ КЛАССА - СНИПЕД "set" */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrice(int price) {
+    public void setPrice(double price) {
+        if (price < 100){
+            throw new RuntimeException("Некорректная цена товара.");
+        }
         this.price = price;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    private void checkName(String name){
+        if (name == null || name.length() < 3){
+            this.name = "Noname";
+        }
+        else {
+            this.name = name;
+        }
     }
 
-    public void setBestBefore(Calendar bestBefore) {
-        this.bestBefore = bestBefore;
+    private void checkBrand(String brand){
+        if (brand == null || brand.length() < 3){
+            this.brand = "Noname";
+        }
+        else {
+            this.brand = brand;
+        }
     }
 
-    @Override
-    public String toString() {  // полиморфизм - переделать стандартное поведение
-        return "Product [name=" + name + ", price=" + price + ", quantity=" + quantity + ", bestBefore=" + bestBefore.get(Calendar.MONTH) + "." + bestBefore.get(Calendar.YEAR) + "]";
+    public String displayInfo(){
+        return String.format("%s - %s - %.2f", name, brand, price);
     }
+
+
 }
