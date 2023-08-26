@@ -4,11 +4,13 @@ public class VendingMachine {
 
     private List<Product> products;
 
+    /** ЗАПОЛНЕНИЕ АВТОМАТА ПРОДУКТАМИ ИЗ СПИСКА */
     public VendingMachine(List<Product> products) {
         this.products = products;
     }
 
-    public BottleOfWater getBottleOfWater(String name, double volume){
+    /** ПОИСК БУТЫЛКИ ВОДЫ */
+    public BottleOfWater getProduct(String name, double volume){
         for (Product product : products) {
             if (product instanceof BottleOfWater){
                 BottleOfWater bottleOfWater = (BottleOfWater)product;
@@ -20,7 +22,21 @@ public class VendingMachine {
         return null;
     }
 
-    public Chocolate getChocolate(String name, int callories){
+    /** ПЕРЕГРУЗКА - ПОИСК БУТЫЛКИ МОЛОКА */
+    public BottleOfMilk getProduct(String name, double volume, int fat){
+        for (Product product : products) {
+            if (product instanceof BottleOfMilk){
+                BottleOfMilk bottleOfMilk = (BottleOfMilk)product;
+                if (bottleOfMilk.getName().equals(name) && bottleOfMilk.getVolume() == volume && bottleOfMilk.getFat() == fat){
+                    return bottleOfMilk;
+                }
+            }
+        }
+        return null;
+    }
+
+    /** ПЕРЕГРУЗКА - ПОИСК ШОКОЛАДА */
+    public Chocolate getProduct(String name, int callories){
         for (Product product : products) {
             if (product instanceof Chocolate){  // если очередной продукт - шоколад
                 Chocolate chocolate = (Chocolate)product;  // создать объект класса шоколад и преобразовать его в тип шоколад
@@ -32,7 +48,8 @@ public class VendingMachine {
         return null;
     }
 
-    public Chocolate getChocolate(String name, int callories, int weight){
+    /** ПЕРЕГРУЗКА - ПОИСК ШОКОЛАДА */
+    public Chocolate getProduct(String name, int callories, int weight){
         for (Product product : products) {
             if (product instanceof Chocolate){  // если очередной продукт - шоколад
                 Chocolate chocolate = (Chocolate)product;  // создать объект класса шоколад и преобразовать его в тип шоколад
@@ -44,7 +61,8 @@ public class VendingMachine {
         return null;
     }
 
-    public Chocolate getChocolate(String brand){
+    /** ПЕРЕГРУЗКА - ПОИСК ШОКОЛАДА */
+    public Chocolate getProduct(String brand){
         for (Product product : products) {
             if (product instanceof Chocolate){  // если очередной продукт - шоколад
                 Chocolate chocolate = (Chocolate)product;  // создать объект класса шоколад и преобразовать его в тип шоколад

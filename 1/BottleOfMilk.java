@@ -19,6 +19,7 @@ public class BottleOfMilk extends Product {
 
     @Override
     public String displayInfo() {
-        return String.format("[Бутылка с молоком] %s - %s - %.2f - v: %.2f f: %d", name, brand, price, volume, fat);
+        // return String.format("[Бутылка с молоком] %s - %s - %.2f - v: %.2f f: %d", name, brand, price, volume, fat);
+        return super.displayInfo() + ", volume=" + this.volume + ", fat=" + fat;
     }
 }

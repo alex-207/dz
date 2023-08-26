@@ -6,15 +6,15 @@ public class Product {
     protected double price; // Стоимость
 
     public Product(){
-        this("Noname");  // вызов конструктора с именем, из данного конструктора 
+        this("Noname");  // цепочка 1: вызов конструктора c одним параметром (по умолчанию)
     }
 
     public Product(String name){
-        this(name, "Noname");
+        this(name, "Noname");   // цепочка 2: вызов конструктора c двумя параметрами (параметр name инициализируется, brand по умолчанию)
     }
 
     public Product(String name, String brand){
-        this(name, brand, 100);
+        this(name, brand, 100);  // цепочка 3: вызов конструктора c тремя параметрами (параметры name и brand инициализируются, price по умолчанию)
     }
 
     public Product(String name, String brand, double price){
@@ -74,6 +74,4 @@ public class Product {
     public String displayInfo(){
         return "name=" + this.name + ", brand=" + this.brand + ", price=" + this.price;
     }
-
-
 }
