@@ -44,4 +44,15 @@ public class VendingMachine {
         return null;
     }
 
+    public Chocolate getChocolate(String brand){
+        for (Product product : products) {
+            if (product instanceof Chocolate){  // если очередной продукт - шоколад
+                Chocolate chocolate = (Chocolate)product;  // создать объект класса шоколад и преобразовать его в тип шоколад
+                if (chocolate.getBrand().equals(brand)){
+                    return chocolate;
+                }
+            }
+        }
+        return null;
+    }
 }

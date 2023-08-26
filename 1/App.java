@@ -7,9 +7,9 @@ public class App {
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();  // очистка консоли
 
         // Product product1 = new Product();
-        //product1.name = "Product1";
-        //product1.brand = "Brand1";
-        //product1.price = 200;
+        // product1.name = "Product1";
+        // product1.brand = "Brand1";
+        // product1.price = 200;
         // System.out.println(product1.displayInfo());
 
         // Product product2 = new Product(null, "Brand2", 300);
@@ -24,7 +24,7 @@ public class App {
         //product3.name = "A";
         // System.out.println(product3.displayInfo());
 
-        Product bottleOfMilk1 = new BottleOfMilk("Бутылка1", "ООО Молоко", 350, 1.5, 15);
+        // Product bottleOfMilk1 = new BottleOfMilk("Бутылка1", "ООО Молоко", 350, 1.5, 15);
         // System.out.println(bottleOfMilk1.displayInfo());
 
         Product bottleOfWater1 = new BottleOfWater("Бутылка c водой", "ООО Источник", 350, 1);
@@ -35,7 +35,7 @@ public class App {
         Product bottleOfWater3 = new BottleOfWater("Бутылка c водой", "ООО Источник", 250, 2);
 
         List<Product> products = new ArrayList<>();
-        products.add(bottleOfMilk1);
+        // products.add(bottleOfMilk1);
         products.add(bottleOfWater1);
         products.add(bottleOfWater2);
         products.add(bottleOfWater3);
@@ -66,8 +66,12 @@ public class App {
         products.add(chocolate3);
         products.add(chocolate4);
 
-        Chocolate enquiryChocolate = vendingMachine.getChocolate("Шоколад", 125);
+        // Chocolate enquiryChocolate = vendingMachine.getChocolate("Шоколад", 125);
         // Chocolate enquiryChocolate = vendingMachine.getChocolate("Шоколад", 110, 70);
+        // Chocolate enquiryChocolate = vendingMachine.getChocolate("Snikers");
+        // Chocolate enquiryChocolate = vendingMachine.getChocolate("Twix");
+        // Chocolate enquiryChocolate = vendingMachine.getChocolate("Mars");
+        Chocolate enquiryChocolate = vendingMachine.getChocolate("Baunty");
 
         if (enquiryChocolate != null){
             System.out.println("Вы получили:");

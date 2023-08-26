@@ -72,7 +72,7 @@ public class Product {
     }
 
     public String displayInfo(){
-        return String.format("%s - %s - %.2f", name, brand, price);
+        return "name=" + this.name + ", brand=" + this.brand + ", price=" + this.price;
     }
 
 
