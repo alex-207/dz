@@ -35,10 +35,10 @@ public class App {
             }
             else System.out.println("кот " + cat.getName() + " наелся:" + cat.getSatiety());
         }
-        
+
         System.out.println();
         System.out.println("Осталось еды, после кормления котов: " + plate.getFood());
-        plate.addFood(111);  // добавить еду в тарелку
+        plate.addFood(4);  // добавить еду в тарелку
         System.out.println("Стало еды, после добавления: " + plate.getFood());
     }
 }

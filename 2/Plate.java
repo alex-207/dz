@@ -2,17 +2,22 @@ public class Plate {
     private int food;
     
     public Plate(int food) {
-        if (food > 0) this.food = food;
+        if (isEnoughtFood(food)) this.food = food;
         else System.out.println("Насыпьте больше еды!");
     }
 
     /** метод добавления еды */
     public void addFood(int food){
-        if (food > 0) {
+        if (isEnoughtFood(food)) {
             System.out.println("Добавили " + food + " еды");
             this.food += food;
         }
         else System.out.println("Насыпьте больше еды!");
+    }
+
+    private boolean isEnoughtFood(int food) {
+        if(food > 0) return true;
+        else return false;
     }
 
     public int getFood() {
