@@ -1,7 +1,7 @@
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.io.IOException;
 
 public class Program {
     public static void main(String[] args) throws IOException, InterruptedException {
