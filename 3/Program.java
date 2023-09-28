@@ -55,11 +55,9 @@ public class Program {
                     String result = String.valueOf(sb);
                     writer.write(result);
                     writer.append("\n");
-                    throw new Exception();
-                } catch (Exception e) {
+                    throw new IOException();
+                } catch (IOException e) {
                     e.getStackTrace();
-                } finally{
-                    System.out.println("Успешное завершение работы с файлом");
                 }
             }
         } catch (Exception e) {
