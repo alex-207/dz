@@ -1,4 +1,6 @@
+import java.util.ConcurrentModificationException;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -38,8 +40,8 @@ public class Program {
 
         При возникновении проблемы с чтением-записью в файл, исключение должно быть корректно обработано, пользователь должен увидеть стектрейс ошибки. */
 
-        int resultFio = inputFio(/* result */);
-        try (FileWriter writer = new FileWriter(fileName, true)){  // true - дозаписывать данные через writer
+        int resultFio = inputFio();
+        try {  // true - дозаписывать данные через writer
             if (resultFio == -1) throw new Exception("Недопустимые символы, при вводе ФИО");
             else if (resultFio == -2) throw new Exception("Вы ввели лишние данные, при вводе ФИО");
             else if (resultFio == -3) throw new Exception("Вы ввели не все данные, при вводе ФИО");
@@ -49,24 +51,25 @@ public class Program {
             else if(resultFio == -7) throw new Exception("Слошком мало цифр в номере телефона");
             else if(resultFio == -8) throw new Exception("Некорректный ввод пола");
             else{
-                try {
+                try (FileWriter writer = new FileWriter(fileName, true)) {
                     String result = String.valueOf(sb);
                     writer.write(result);
                     writer.append("\n");
                     throw new Exception();
                 } catch (Exception e) {
-                    e.setStackTrace(null);
+                    e.getStackTrace();
+                } finally{
+                    System.out.println("Успешное завершение работы с файлом");
                 }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        // System.out.println("Успешное завершение работы с файлом");
     }
 
     static StringBuilder sb = new StringBuilder();
     static Scanner sc = new Scanner(System.in);
-    static String fileName;
+    static String fileName = "";
 
     static int inputFio(){
         int amountData = 3;
