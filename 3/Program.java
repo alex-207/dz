@@ -53,9 +53,14 @@ public class Program {
             else{
                 try (FileWriter writer = new FileWriter(fileName, true)) {
                     String result = String.valueOf(sb);
+                    // System.out.println(fileName.length());
+                    // System.out.println(fileName.getClass());
                     writer.write(result);
                     writer.append("\n");
-                    throw new IOException();
+                    // System.out.println(fileName.length());
+                    // System.out.println(fileName.getClass());
+                    if(fileName.length() == 0) throw new IOException();
+                    else System.out.println("Данные успешно записаны в файл");
                 } catch (IOException e) {
                     e.getStackTrace();
                 }
