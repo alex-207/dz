@@ -50,6 +50,7 @@ public class Program {
             else if(resultFio == -6) throw new Exception("Слишком много цифр в номере телефона");
             else if(resultFio == -7) throw new Exception("Слошком мало цифр в номере телефона");
             else if(resultFio == -8) throw new Exception("Некорректный ввод пола");
+            else if(resultFio == -9) throw new Exception("Слишком мало букв в ФИО");
             else{
                 try (FileWriter writer = new FileWriter(fileName, true)) {
                     String result = String.valueOf(sb);
@@ -59,7 +60,7 @@ public class Program {
                     writer.append("\n");
                     // System.out.println(fileName.length());
                     // System.out.println(fileName.getClass());
-                    if(fileName.length() == 0) throw new IOException();
+                    if(fileName.length() == 0) throw new IOException();  // если файл не был создан -> бросить исключение
                     else System.out.println("Данные успешно записаны в файл");
                 } catch (IOException e) {
                     e.getStackTrace();
@@ -75,10 +76,17 @@ public class Program {
     static String fileName = "";
 
     static int inputFio(){
-        int amountData = 3;
+        int amountStrings = 3;
+        int amountSymbols = 2;
         System.out.println("Введите фамилию имя и отчество, на латинице, через пробел: ");
-        String dataInput = sc.nextLine(); 
-        String[] strings = dataInput.split(" ");
+        String dataInput = sc.nextLine();  
+        String[] strings = dataInput.split(" ");  // String -> Strings[]
+
+        // ПРОВЕРКА ДАННЫХ ПО ДЛИННЕ КАЖДОЙ СТРОКИ
+        for (String string : strings) {
+            if(string.length() < amountSymbols) return -9;
+            else continue;
+        }
 
         // ПРОВЕРКА ДАННЫХ ПО ТИПУ
         for (int i = 0; i < strings.length; i++) {
@@ -90,9 +98,9 @@ public class Program {
             }
         }
 
-        // ПРОВЕРКА ДАННЫХ ПО КОЛИЧЕСТВУ
-        if(strings.length > amountData) return -2;  // лишние данные
-        else if(strings.length < amountData) return -3;  // не все данные
+        // ПРОВЕРКА ДАННЫХ ПО КОЛИЧЕСТВУ СТРОК
+        if(strings.length > amountStrings) return -2;  // лишние данные
+        else if(strings.length < amountStrings) return -3;  // не все данные
         
         fileName = strings[0];  // название файла = фамилии
 
