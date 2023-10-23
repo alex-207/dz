@@ -1,0 +1,31 @@
+cat >> file1
+cat >> file2
+cat file1 file2 > file3
+mv file3 file4
+-----------------------------------
+touch file5
+touch file6
+mkdir dir1
+mv file5 dir1
+rm -r *
+-----------------------------------
+cat >> file1
+cp file1 file2
+ln -s file1 file3
+ln file1 file4
+ll
+rm file
+ll
+file2 - без изменений
+file3 - недоступен
+file4 - имеет такой же inode который был у file1
+cat file2
+cat file3
+cat file4
+-----------------------------------
+mv file2 file2_rename
+mv file3 file3_rename
+mv file4 file4_rename
+ln -s file2_rename file2_link
+mkdir dir1
+mv file2_link file2_rename file3_rename file4_rename /home/alex-207/tmp/dir1
