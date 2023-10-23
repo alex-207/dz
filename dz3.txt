@@ -1,0 +1,95 @@
+touch file1 file2
+chmod u=rw,g=rw,o=r file1
+chmod 664 file1
+chmod u=rw file2
+chmod 600 file2
+sudo chown -R user2:rtkit dir1/
+--------------------------------------------------
+sudo useradd -s /bin/bash -md /home/user_five user5
+sudo adduser user6
+    Enter
+    Enter
+    Enter
+    Enter
+    Enter
+    Enter
+    Enter
+    Enter
+    y
+sudo userdel user5
+sudo userdel user6
+--------------------------------------------------
+sudo groupadd my_group
+sudo addgroup alex-207 my_group
+tail /etc/group -n 5
+sudo usermod -g my_group user2
+sudo groups user2
+sudo usermod -aG user2 user2
+sudo groups user2
+sudo useradd -s /bin/bash -g root -md /home/super_group super_user
+sudo visudo
+%sudo   ALL=(ALL:ALL) NOPASSWD:ALL
+sudo cat /etc/sudoers
+--------------------------------------------------
+*
+sudo visudo
+super_user    ALL=(ALL:ALL) /usr/bin/passwd
+super_user    ALL=(ALL:ALL) /usr/bin/usermod
+super_user    ALL=(ALL:ALL) /usr/bin/chgrp
+
+*
+sudo groupadd developer
+sudo useradd -s /bin/bash -g developer -md /home/user3_dir user3
+sudo groups user3
+sudo useradd -s /bin/bash -g developer -md /home/user4_dir user4
+sudo useradd -s /bin/bash -g developer -md /home/user5_dir user5
+tail /etc/group -n 5
+sudo usermod -aG developer user3
+sudo usermod -aG developer user4
+sudo usermod -aG developer user5
+tail /etc/group -n 5
+mkdir dir_developers
+sudo chgrp -R developer dir_developers/
+ll
+sudo chmod g+w dir_developers/
+
+*
+sudo mkdir /home/alex-207/tmp/dir_developers/dir_change
+tree
+cd dir_developers/
+ll
+1049166 drwxr-xr-x 2 root root 4,0K окт 21 23:53 dir_change/
+
+sudo chgrp -R developer dir_change/
+ll
+1049166 drwxr-xr-x 2 root developer 4,0K окт 21 23:53 dir_change/
+
+sudo chmod o+t dir_change/
+ll
+1049166 drwxr-xr-t 2 root developer 4,0K окт 21 23:53 dir_change/
+
+*
+mkdir dir2
+touch /home/alex-207/tmp/dir2/file3
+touch /home/alex-207/tmp/dir2/file4
+touch /home/alex-207/tmp/dir2/file5
+touch /home/alex-207/tmp/dir2/file6
+ls dir2/
+file3  file4  file5  file6
+
+cat >> dir2/file3
+hello
+cat dir2/file3
+hello
+ll
+1049165 drwxrwxr-x 2 alex-207 alex-207  4,0K окт 22 00:08 dir2/	
+
+chmod -R a-r dir2/
+ll
+1049165 d-wx-wx--x 2 alex-207 alex-207  4,0K окт 22 00:08 dir2/
+
+ls dir2/
+ls: невозможно открыть каталог 'dir2/': Отказано в доступе
+
+sudo ls dir2/
+file3  file4  file5  file6
