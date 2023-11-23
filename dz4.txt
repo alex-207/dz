@@ -1,0 +1,77 @@
+sudo apt-get update
+
+sudo apt-get install ca-certificates curl gnupg
+
+sudo install -m 0755 -d /etc/apt/keyrings
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+echo \
+
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo docker run hello-world
+
+ls /etc/apt/sources.list.d/ -> docker.list  vbox-apt.list
+
+sudo apt search docker
+
+sudo apt install python3-docker -y
+
+-----------------------------------------------------------------------------------
+
+sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+dpkg -i google-chrome-stable_current_amd64.deb
+
+sudo apt search google-chrome
+
+sudo dpkg -r google-chrome-stable
+
+-----------------------------------------------------------------------------------
+
+sudo snap install telegram-desktop
+
+sudo snap remove telegram-desktop
+
+-----------------------------------------------------------------------------------
+
+crontab -e
+
+3 * * * * echo 'each 3 min' >> /home/alex-207/tmp/file_cron.txt
+
+-----------------------------------------------------------------------------------
+
+sudo add-apt-repository ppa:adrien-n/cdebconf-0.270ubuntu1
+
+ls /etc/apt/sources.list.d/ -> adrien-n-ubuntu-cdebconf-0_270ubuntu1-jammy.list  docker.list  google-chrome.list  vbox-apt.list
+
+sudo apt search ubuntu jammy Release
+
+sudo apt show budgie-wallpapers-jammy
+
+sudo apt install budgie-wallpapers-jammy
+
+sudo apt remove budgie-wallpapers-jammy
+
+sudo apt upgrade
+
+sudo apt -f install
+
+sudo apt autoremove
+
+-----------------------------------------------------------------------------------
+
+crontab -e
+
+0 12 28 * * tar -zcf /var/backups/home.tgz /home/alex-207
