@@ -1,0 +1,194 @@
+sudo apt install nginx
+apt install php8.1-fpm
+sudo nano /etc/php/8.1/fpm/pool.d/www.conf
+
+..
+listen = /run/php/php8.1-fpm.sock
+..
+
+sudo nginx -t
+sudo systemctl start nginx
+sudo systemctl status nginx
+sudo nano /etc/nginx/sites-enabled/default
+
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	root /var/www/html;
+	index index.html index.htm index.nginx-debian.html;
+	server_name _;
+	
+	# LOCATION ПО УМОЛЧАНИЮ
+	location / {
+		try_files $uri $uri/ =404;
+	}
+
+	# LOCATION ДЛЯ ОБРАБОТКИ PHP В PHP-FPM ЧЕРЕЗ NGINX
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		root /var/www/html;
+		fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+	}
+}
+
+sudo nginx -t
+sudo systemctl reload nginx
+sudo systemctl status nginx
+
+------------------------------------------
+
+sudo apt install apache2
+sudo apt install libapache2-mod-php8.1 php8.1
+sudo systemctl start apache2
+sudo systemctl status apache2
+sudo nano /etc/apache2/ports.conf
+
+Listen 8080
+<IfModule ssl_module>
+        Listen 443
+</IfModule>
+<IfModule mod_gnutls.c>
+        Listen 443
+</IfModule>
+
+sudo apachectl -t
+sudo nano /etc/apache2/sites-enabled/000-default.conf
+
+VirtualHost *:8080>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+sudo apachectl -t
+
+sudo nano /var/www/html/info.php
+
+<?php
+phpinfo();
+?>
+
+sudo apachectl -t
+sudo systemctl reload apache2
+sudo systemctl status apache2
+curl http://localhost/info.php
+
+------------------------------------------
+
+sudo nginx -t
+sudo systemctl status nginx
+sudo nano /etc/nginx/sites-enabled/default
+
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	root /var/www/html;
+	index index.html index.htm index.nginx-debian.html;
+	server_name _;
+	
+	# LOCATION ПО УМОЛЧАНИЮ
+	#location / {
+	#	try_files $uri $uri/ =404;
+	#}
+	
+	# LOCATION ДЛЯ REVERSE PROXY (ДИНАМИЧЕСКИЕ ЗАПРОСЫ - ВЫПОЛНИТСЯ ЕСЛИ НЕ СРАБОТАЛ СТАТИЧЕСКИЙ ЗАПРОС)
+	location / {
+		proxy_pass http://localhost:8080;
+		proxy_set_header Host $host;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Real-IP $remote_addr;
+	}
+	
+	# LOCATION ДЛЯ REVERSE PROXY (СТАТИЧЕСКИЕ ЗАПРОСЫ - ВЫПОЛНЯЮТСЯ В ПЕРВУЮ ОЧЕРЕДЬ)
+    	# начало_строки       один_из_вариантов_расширения_файла     конец_строки
+    	#           |    |-----------------------------------------| |
+	location ~* ^.+.(jpg|jpeg|gif|png|ico|css|zip|pdf|txt|tar|js)$ {
+		root /var/www/html;
+	}
+
+	# LOCATION ДЛЯ ОБРАБОТКИ PHP В PHP-FPM ЧЕРЕЗ NGINX
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		root /var/www/html;
+		fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+	}
+}
+
+sudo nginx -t
+sudo systemctl reload nginx
+sudo systemctl status nginx
+
+------------------------------------------
+
+apt install mysql-server-8.0
+sudo mysql
+
+show databases;
++--------------------+
+| Database           |
++--------------------+
+| gb                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0,00 sec)
+
+CREATE DATABASE dz6;
+Query OK, 1 row affected (0,03 sec)
+
+show databases;
++--------------------+
+| Database           |
++--------------------+
+| dz6                |
+| gb                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0,00 sec)
+
+USE dz6
+Database changed
+
+CREATE TABLE table_dz6(i INT);
+Query OK, 0 rows affected (0,11 sec)
+
+show tables;
++---------------+
+| Tables_in_dz6 |
++---------------+
+| table_dz6     |
++---------------+
+1 row in set (0,01 sec)
+
+SELECT * FROM table_dz6;
+Empty set (0,00 sec)
+
+INSERT INTO table_dz6 (i) VALUES (1),(2),(3),(4),(5);
+Query OK, 5 rows affected (0,03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+SELECT * FROM table_dz6 WHERE i > 3;
++------+
+| i    |
++------+
+|    4 |
+|    5 |
++------+
+2 rows in set (0,01 sec)
+
+exit
+
+------------------------------------------
+
+sudo apt install phpmyadmin -y
+сервер -> apache2
+
+не захрдит при вводе адреса http://localhost/phpmyadmin
+выдает ошибку 404
+сервер nginx
