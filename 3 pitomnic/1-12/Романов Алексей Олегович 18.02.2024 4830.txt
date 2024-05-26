@@ -1,0 +1,124 @@
+1. Использование команды cat в Linux
+cat > Pets.txt
+dogs
+cats
+hamsters
+
+cat > PackAnimals.txt
+horses
+camels
+donkeys
+
+cat PackAnimals.txt Pets.txt > AllAnimals.txt
+
+mv AllAnimals.txt HumanFriend.txt 
+
+ls
+
+-------------------------------------------
+2. Работа с директориями в Linux
+mkdir newDir
+
+mv HumanFriends.txt newDir/
+
+-------------------------------------------
+3. Работа с MySQL в Linux
+sudo apt install mysql-server-8.0 -y
+
+systemctl status mysql
+
+-------------------------------------------
+4. Управление deb-пакетами
+sudo dpkg -i mysql-apt-config_0.8.29-1_all.deb
+sudo dpkg -r mysql-apt-config
+
+
+============================================
+-- 7. В подключенном MySQL репозитории создать базу данных Друзья человека
+DROP DATABASE IF EXISTS `Human Friends`;
+CREATE DATABASE IF NOT EXISTS `Human Friends`;
+USE `Human Friends`;
+
+-- -----------------------------------------
+-- 8. Создать таблицы с иерархией из диаграммы в БД
+DROP TABLE IF EXISTS pets;
+CREATE TABLE IF NOT EXISTS pets
+(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(40),
+	`type` VARCHAR(40),
+	birthDay DATE NOT NULL,
+	commands VARCHAR (512)
+);
+
+DROP TABLE IF EXISTS packAnimals;
+CREATE TABLE IF NOT EXISTS packAnimals
+(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(40),
+	`type` VARCHAR(40),
+	birthDay DATE NOT NULL,
+	commands VARCHAR (512)
+);
+
+-- -----------------------------------------
+-- 9. Заполнить низкоуровневые таблицы именами(животных), командами которые они выполняют и датами рождени
+INSERT INTO pets (`name`, `type`, birthDay, commands)
+VALUES
+('Fido', 'Dog', '2020-01-01', 'Sit, Stay, Fetch'),
+('Whiskers', 'Cat', '2019-05-15', 'Sit, Pounce'),
+('Hammy', 'Hamster', '2021-03-10', 'Roll, Hide'),
+('Buddy', 'Dog', '2018-12-10', 'Sit, Paw, Bark'),
+('Smudge', 'Cat', '2020-02-20', 'Sit, Pounce, Scratch'),
+('Peanut', 'Hamster', '2021-08-01', 'Roll, Spin'),
+('Bella', 'Dog', '2019-11-11', 'Sit, Stay, Roll'),
+('Oliver', 'Cat', '2020-06-30', 'Meow, Scratch, Jump');
+
+INSERT INTO packAnimals (`name`, `type`, birthDay, commands)
+VALUES
+('Thunder', 'Horse', '2015-07-21', 'Trot, Canter, Gallop'),
+('Sandy', 'Camel', '2016-11-03', 'Walk, Carry Load'),
+('Eeyore', 'Donkey', '2017-09-18', 'Walk, Carry Load, Bray'),
+('Storm', 'Horse', '2014-05-05', 'Trot, Canter'),
+('Dune', 'Camel', '2018-12-12', 'Walk, Sit'),
+('Burro', 'Donkey', '2019-01-23', 'Walk, Bray, Kick'),
+('Blaze', 'Horse', '2016-02-29', 'Trot, Jump, Gallop'),
+('Sahara', 'Camel', '2015-08-14', 'Walk, Run');
+
+-- -----------------------------------------
+-- 10. Удалив из таблицы верблюдов, т.к. верблюдов решили перевезти в другой питомник на зимовку. Объединить таблицы лошади, и ослы в одну таблицу
+DELETE FROM packAnimals
+	WHERE type = 'Camel';
+
+-- -----------------------------------------
+-- 11.Создать новую таблицу МОЛОДЫЕ ЖИВОТНЫЕ в которую попадут все животные старше 1 года, но младше 3 лет и в отдельном столбце с точностью до месяца подсчитать возраст животных в новой таблиц
+
+-- Таблица для домашних животных в возрасте от 1 до 3 лет и их возраст с точностью до месяца
+DROP TABLE IF EXISTS one_three_years_old_pets;
+CREATE TABLE one_three_years_old_pets
+SELECT *, ((YEAR(CURRENT_DATE) - YEAR(birthday)) - (DATE_FORMAT(CURRENT_DATE, '%m%d') < DATE_FORMAT(birthday, '%m%d'))) AS Years,
+(TIMESTAMPDIFF(MONTH, birthday, NOW()) % 12) AS Months
+FROM pets
+WHERE (YEAR(CURRENT_DATE)-YEAR(birthDay))-(RIGHT(CURRENT_DATE,5)<RIGHT(birthDay,5)) < 3 AND (YEAR(CURRENT_DATE)-YEAR(birthDay))-(RIGHT(CURRENT_DATE,5)<RIGHT(birthDay,5)) > 1;
+
+-- Таблица для вьючных животных в возрасте от 1 до 3 лет и их возраст с точностью до месяца
+DROP TABLE IF EXISTS one_three_years_old_packAnimals;
+CREATE TABLE one_three_years_old_packAnimals
+SELECT *, ((YEAR(CURRENT_DATE) - YEAR(birthday)) - (DATE_FORMAT(CURRENT_DATE, '%m%d') < DATE_FORMAT(birthday, '%m%d'))) AS Years,
+(TIMESTAMPDIFF(MONTH, birthday, NOW()) % 12) AS Months
+FROM packAnimals
+WHERE (YEAR(CURRENT_DATE)-YEAR(birthDay))-(RIGHT(CURRENT_DATE,5)<RIGHT(birthDay,5)) < 3 AND (YEAR(CURRENT_DATE)-YEAR(birthDay))-(RIGHT(CURRENT_DATE,5)<RIGHT(birthDay,5)) > 1;
+
+-- Создать новую таблицу для животных в возрасте от 1 до 3 лет и вычислить их возраст с точностью до месяца
+CREATE OR REPLACE VIEW one_three_years_old_animals AS
+SELECT * FROM one_three_years_old_pets
+UNION
+SELECT * FROM one_three_years_old_packAnimals;
+
+-- -----------------------------------------
+-- 12. Объединить все таблицы в одну, при этом сохраняя поля, указывающие на прошлую принадлежность к старым таблицам
+SELECT * FROM pets
+RIGHT JOIN packAnimals ON pets.id = packAnimals.id
+UNION
+SELECT * FROM pets
+LEFT JOIN packAnimals ON pets.id = packAnimals.id;
